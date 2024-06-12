@@ -1,5 +1,47 @@
+#database 연동 설정
 spring:
-  profiles:
-    active: ${PROFILE}
-  main:
-    allow-bean-definition-overriding: true
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://${DB_url}:${DB_port}/{DB_dataBaseName}?characterEncoding=UTF-8&serverTimezone=UTC
+    username: ${DB_name}
+    password: ${DB_password}
+    #spring:
+    #datasource:
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    #url: ${DB_URL}
+    #username: ${DB_USER_NAME}
+    #password: ${DB_PASSWORD}
+  thymeleaf:
+    cache: false
+    prefix: classpath:templates/
+    suffix: .html
+    check-template-location: true
+  devtools:
+    livereload:
+      enabled: true
+
+
+  # spring data jpa 설정
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        # show_sql: true
+        format_sql: true
+
+# UTF-8 설정
+server:
+  servlet:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.orm.jdbc.bind: trace
+  # org.hibernate.type: trace #스프링 부트 2.x, hibernate5
+  # org.hibernate.orm.jdbc.bind: trace #스프링 부트 3.x, hibernate6
+
+
