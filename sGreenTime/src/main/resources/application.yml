@@ -1,10 +1,16 @@
 #database 연동 설정
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${DB_url}:${DB_port}/{DB_dataBaseName}
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://${DB_url}:${DB_port}/{DB_dataBaseName}?characterEncoding=UTF-8&serverTimezone=UTC
     username: ${DB_name}
     password: ${DB_password}
+    #spring:
+    #datasource:
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    #url: ${DB_URL}
+    #username: ${DB_USER_NAME}
+    #password: ${DB_PASSWORD}
   thymeleaf:
     cache: false
     prefix: classpath:templates/
@@ -23,6 +29,7 @@ spring:
       hibernate:
         # show_sql: true
         format_sql: true
+        dialect: org.hibernate.dialect.MariaDB103Dialect
 
 # UTF-8 설정
 server:
