@@ -37,33 +37,31 @@ public class MapController {
         return "hello";
     }
 
-    @GetMapping("/vworldData/{id}")
-    public ModelAndView vworldData(@PathVariable("id") String id) throws JSONException, JsonProcessingException {
-        List<MyPlaceEntity> myPlaceEntityList = myPlaceService.findMyPlaceById(id);
+    @GetMapping("/vworldData/{id}/{lat}/{lng}")
+    public ModelAndView vworldData(@PathVariable("id") String id, @PathVariable("lat") String lat,@PathVariable("lng") String lng) throws JSONException, JsonProcessingException {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("hello");
 
         modelAndView.addObject("userId", id);
-
-        modelAndView.addObject("myPlaceEntityListSize", myPlaceEntityList.size());
-        for (int j = 0; j < myPlaceEntityList.size(); j++) {
-            String myPlaceJson = objectMapper.writeValueAsString(myPlaceEntityList.get(j));
-            modelAndView.addObject("myPlaceData" + j, myPlaceJson);
-        }
+        modelAndView.addObject("nowLatitude", lat);
+        modelAndView.addObject("nowLongitude", lng);
 
         //visitedTrailLnkNamList MapController로 가져오기
         List<String> visitedTrailLnkNamList = visitedService.getVisitedTrailLnkNam(id);
-        modelAndView.addObject("visitedTrailLnkNamList", visitedTrailLnkNamList);
-
+        if(!visitedTrailLnkNamList.isEmpty()) {
+            modelAndView.addObject("visitedTrailLnkNamList", visitedTrailLnkNamList);
+        }
         //visitedHikingMntnNmList
         List<String> visitedHikingMntnNmList = visitedService.getVisitedHikingMntnNm(id);
-        modelAndView.addObject("visitedHikingMntnNmList", visitedHikingMntnNmList);
-
+        if(!visitedHikingMntnNmList.isEmpty()) {
+            modelAndView.addObject("visitedHikingMntnNmList", visitedHikingMntnNmList);
+        }
         //visitedParkNameList
         List<String> visitedParkNameList = visitedService.getVisitedParkName(id);
-        modelAndView.addObject("visitedParkNameList", visitedParkNameList);
-
+        if(!visitedParkNameList.isEmpty()) {
+            modelAndView.addObject("visitedParkNameList", visitedParkNameList);
+        }
         String trailApiUrl1;
         String hikingApiUrl1;
         String park1ApiUrl1;
