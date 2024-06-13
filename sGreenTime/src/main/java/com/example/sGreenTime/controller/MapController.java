@@ -1,5 +1,6 @@
 package com.example.sGreenTime.controller;
 
+import com.example.sGreenTime.dto.MemberDTO;
 import com.example.sGreenTime.entity.MyPlaceEntity;
 import com.example.sGreenTime.service.MapService;
 import com.example.sGreenTime.service.MyPlaceService;
@@ -37,11 +38,15 @@ public class MapController {
         return "hello";
     }
 
-    @GetMapping("/vworldData/{id}/{lat}/{lng}")
-    public ModelAndView vworldData(@PathVariable("id") String id, @PathVariable("lat") String lat,@PathVariable("lng") String lng) throws JSONException, JsonProcessingException {
+    @PostMapping("/vworldData")
+    public ModelAndView vworldData(@RequestBody MemberDTO memberDTO) throws JSONException, JsonProcessingException {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("hello");
+        String id = memberDTO.getId();
+
+        String lat = "37.5132";
+        String lng = "126.9486";
 
         modelAndView.addObject("userId", id);
         modelAndView.addObject("nowLatitude", lat);
