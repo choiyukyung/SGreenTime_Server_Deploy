@@ -38,12 +38,12 @@ public class MapController {
         return "hello";
     }
 
-    @PostMapping("/vworldData")
+    @GetMapping("/vworldData")
     public ModelAndView vworldData(@RequestBody MemberDTO memberDTO) throws JSONException, JsonProcessingException {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("hello");
-        String id = memberDTO.getId();
+        String id = "memberDTO.getId()";
 
         String lat = "37.5132";
         String lng = "126.9486";
